@@ -1,0 +1,13 @@
+{% extends "home.html" %}
+{% block title %} Chat room for "{{ post.subject }}"{% endblock %}
+{% block content %}
+<div id="chat">
+</div>
+<div id="chat-input">
+    test temp
+<input id="chat-message-input" type="text">
+<input id="chat-message-submit" type="submit" value="Send">
+</div>
+{% endblock %}
+{% block domready %}
+{% endblock %}

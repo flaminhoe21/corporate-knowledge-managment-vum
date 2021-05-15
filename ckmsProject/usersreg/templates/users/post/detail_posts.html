@@ -1,0 +1,44 @@
+{% extends "home.html" %}
+{% block title %}
+{{ object.title }}
+{% endblock %}
+{% block content %}
+{% load static %}
+<div id="post-details">
+    <div class="wrapper">
+        <div class="post-title"><h1><i class="fas fa-star"></i> Post: {{ module.subject }}</h1></div>
+
+<div class="teable-modules">
+<h3>Modules</h3>
+    <ul id="modules">
+    {% for m in object.modules.all %}
+    <li data-id="{{ m.field_id }}" {% if m == module %}
+    class="selected"{% endif %}>
+    <a href="{% url 'users_posts_details_module' object.id m.id %}">
+    <span>
+    Module <span class="order">{{ m.order|add:1 }}</span>
+    </span>
+    <br>
+    {{ m.subject }}
+    </a>
+    </li>
+    {% empty %}
+    <li>No modules yet.</li>
+    {% endfor %}
+    </ul>
+</div>
+
+
+<div class="content-modules">
+    <div class="feeded-text">Feeded Content</div>
+{% for content in module.contents.all %}
+{% with item=content.item %}
+<div class="single-element"><h2>{{ item.subject }}</h2>
+{{ item.render }}</div>
+{% endwith %}
+{% endfor %}
+</div>
+        </div>
+    <div class="cl"><!-- --></div>
+    </div>
+{% endblock %}

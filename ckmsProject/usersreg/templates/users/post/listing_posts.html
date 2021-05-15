@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+{% block title %}My posts{% endblock %}
+{% block content %}
+{% load static %}
+<div id="list-after-login">
+    <div class="wrapper">
+    <h1>Followed posts</h1>
+        <div class="module">
+        {% for post_follow_field in object_list %}
+        <div class="single-post">
+        <div class="post-title"> <h3><i class="fas fa-star"></i>{{ post_follow_field.subject }}</h3></div>
+        <div class="add-info">
+            <div class="ckms-system">
+                Powered by CKMS System
+            </div>
+            <div class="acess-content details-btn">
+                <a href="{% url 'details_user_publications' post_follow_field.id %}">Access contents</a>
+            </div>
+        </div>
+        </div>
+        {% empty %}
+        <div class="not-following-content">
+        You are not following in any courses yet.
+        <a href="{% url 'post_more_details' %}">Browse posts</a>
+        to follow in a post.
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "home.html" %}
+{% load post %}
+{% block title %}
+Module {{ module.order|add:1 }}: {{ module.subject }}
+{% endblock %}
+{% block content %}
+{% with post=module.post %}
+<div id="post-details" class="module-content">
+
+    <div class="wrapper">
+        <div class="wrap-contents">
+        <h1>Post "{{ post.subject }}"</h1>
+        <div class="contents">
+            <div class="teable-modules">
+            <h3>Modules</h3>
+            <ul id="modules">
+    {% for m in post.modules.all %}
+        <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
+            <a href="{% url 'inner_post_list' m.id %}">
+            <span>
+                Module <span class="order">{{ m.order|add:1 }}</span>
+            </span>
+            <br>
+            {{ m.subject }}
+            </a>
+            </li>
+        {% empty %}
+    <li>No modules yet.</li>
+{% endfor %}
+</ul>
+           <div class="edit-btn"><a href="{% url 'post_module_update' post.id %}">Edit modules</a></div>
+                <h3>Add new content:</h3>
+        <ul class="content-types">
+        <li><a href="{% url 'module_content_create' module.id 'filetext'%}"><i class="fas fa-file-alt"></i> Text</a></li>
+        <li><a href="{% url 'module_content_create' module.id 'fileimage'%}"><i class="fas fa-image"></i> Image</a></li>
+        <li><a href="{% url 'module_content_create' module.id 'filevideo'%}"><i class="fas fa-video"></i> Video</a></li>
+        <li><a href="{% url 'module_content_create' module.id 'onlyfile'%}"><i class="fas fa-file-word"></i> File</a></li>
+        </ul>
+            </div>
+
+        </div>
+        <div class="module content-modules">
+
+        <h3>Module contents:</h3>
+        <div id="module-contents">
+        {% for content in module.contents.all %}
+            <div data-id="{{ content.id }}">
+
+            {% with item=content.item %}
+            <p>{{ item }} </p><div class="edit-btn"><a href="{% url 'module_content_update' module.id item|model_name item.id %}">Edit</a></div>
+            <div class="delete-btn">
+                <form action="{% url 'module_content_delete' content.id %}" method="post">
+            <input type="submit" value="Delete">
+
+            {% csrf_token %}
+            </form>
+            {% endwith %}
+                </div>
+            {% empty %}
+            <p>This module has no contents yet.</p>
+        {% endfor %}
+        </div>
+
+        </div>
+    </div>
+
+</div>
+{% endwith %}
+{% endblock %}

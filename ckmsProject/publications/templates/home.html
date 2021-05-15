@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+{% load fontawesome_5 %}
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Educa{% endblock %}</title>
+    <link rel="shortcut icon" href="fontawesome.com">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style-1.css' %}">
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+</head>
+
+    <div id="header">
+        <div class="wrapper">
+            <div class="app-logo"><a href="/"><img src="{% static 'images/ckms-logo.png' %}" alt="CKMS App Logo"/></a></div>
+            <div class="main-nav">
+                <ul>
+                    <li><a href="{% url 'about' %}">About the project</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li class="users-posts-listing"><a href="{% url 'users_posts_listing' %}"><i class="fas fa-bars"></i> Followed posts</a></li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <li class="signin"><a href="{% url 'logout' %}"><i class="fas fa-sign-in-alt"></i> Sign out</a></li>
+                    {% else %}
+                        <li class="singin"><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Sign in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="cl"><!-- --></div>
+        </div>
+    </div>
+
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="chatbot-wrap">
+        <div class="chatbot-icon">
+            <img src="{% static 'images/chatbot-ckms.png' %}" alt="Register Isometric Image"/>
+        </div>
+
+        <div class="chatbot-iframe">
+            <iframe
+    allow="microphone;"
+    width="350"
+    height="430"
+    src="https://console.dialogflow.com/api-client/demo/embedded/b9df5d79-367f-45b0-ac34-ef7186efe150">
+</iframe>
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="wrapper">
+            <div class="footer-img"><img src="{% static 'images/footer-ckms.png' %}" alt="Footer Logo"/></div>
+            <div class="text">Varna University of Management</div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            {% block domready %}
+            {% endblock %}
+        });
+    </script>
+
+</body>
+</html>

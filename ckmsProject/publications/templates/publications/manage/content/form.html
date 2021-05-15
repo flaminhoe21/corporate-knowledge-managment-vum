@@ -1,0 +1,29 @@
+{% extends "home.html" %}
+{% block title %}
+{% if object %}
+Edit content "{{ object.subject }}"
+{% else %}
+Add new content
+{% endif %}
+{% endblock %}
+{% block content %}
+<div class="basic-class-wrap content">
+    <div class="wrapper">
+        <h1>
+        {% if object %}
+        Edit content "{{ object.subject }}"
+        {% else %}
+        Add new content
+        {% endif %}
+        </h1>
+        <div class="module">
+        <h2>Post info</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Save content"></p>
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

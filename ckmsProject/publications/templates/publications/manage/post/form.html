@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+{% block title %}
+{% if object %}
+Edit post "{{ post.subject }}"
+{% else %}
+Create a new post
+{% endif %}
+{% endblock %}
+{% block content %}
+<div id="sign-in-page" class="edit-post-page">
+    <div class="wrapper">
+        <div class="sign-in-shell">
+        <h1>
+        {% if object %}
+        Edit post "{{ post.subject }}"
+        {% else %}
+            Create a new post
+        {% endif %}
+        </h1>
+        <div class="module">
+        <h2>Post info</h2>
+        <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Save post"></p>
+        </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

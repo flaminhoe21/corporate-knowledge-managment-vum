@@ -1,0 +1,30 @@
+{% extends "home.html" %}
+{% block title %}My posts{% endblock %}
+{% block content %}
+{% load fontawesome_5 %}
+<div id="list-after-login" class="list-admin">
+    <div class="wrapper">
+        <h1>My posts</h1>
+        <div class="module">
+        {% for post in object_list %}
+            <div class="single-post">
+            <div class="post-subject-admin"> <h3>{{ post.subject }}</h3></div>
+            <ul>
+                <li class="edit-btn"><a href="{% url 'post_edit' post.id %}">Edit Post</a></li>
+                <li class="delete-btn"><a href="{% url 'post_delete' post.id %}">Delete</a></li>
+                <li class="edit-module-btn"><a href="{% url 'post_module_update' post.id %}">Edit Module</a></li>
+                {% if post.modules.count > 0 %}
+                <li class="manage-btn"><a href="{% url 'inner_post_list' post.modules.first.id %}">Manage contents</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% empty %}
+        <p>You haven't created any posts yet.</p>
+        {% endfor %}
+        <p>
+        <div class="create-new-post-btn"><i class="far plus-square"></i><a href="{% url 'post_create' %}" class="button">CREATE NEW POST</a></div>
+        </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

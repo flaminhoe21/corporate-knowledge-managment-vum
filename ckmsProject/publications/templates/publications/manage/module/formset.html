@@ -1,0 +1,22 @@
+{% extends "home.html" %}
+    {% block title %}
+        Edit "{{ post.subject }}"
+    {% endblock %}
+{% block content %}
+<div id="post-details" class="module-content">
+    <div class="wrapper">
+        <div class="formset">
+            <h1><i class="fas fa-edit"></i> Edit "{{ post.subject }}"</h1>
+            <div class="module">
+            <h2>Post modules</h2>
+                <form method="post">
+                {{ formset }}
+                {{ formset.management_form }}
+                {% csrf_token %}
+                <input type="submit" value="Save modules">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

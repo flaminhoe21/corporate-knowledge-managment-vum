@@ -1,0 +1,27 @@
+{% extends "home.html" %}
+{% block title %}
+Sign up
+{% endblock %}
+{% block content %}
+{% load static %}
+
+<div id="sign-in-page" class="register-page">
+    <div class="wrapper">
+        <div class="sign-in-shell register-shell">
+            <div class="isometric-elements"><img src="{% static 'images/isometric-register.png' %}" alt="Register Isometric Image"/></div>
+            <div class="sign-in-form register-form">
+                <h1>Register in CKMS</h1>
+                <p>Enter your details to create an account:</p>
+                <form method="post">
+                    <p><label for="id_username">Username:</label> <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username"> <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span></p>
+                    <p><label for="id_password1">Password:</label> <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1"> <span class="helptext"></span></p><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul><p></p>
+                    <p><label for="id_password2">Password confirmation:</label> <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2"> <span class="helptext">Enter the same password as before, for verification.</span></p>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="YnhpWpzLiL87gg4EtFLK0ZLwXoRp8C6NE1BAbGsAcRrzzA5OL3E46gr481gMyirR">
+                    <p><input type="submit" value="Create my account"></p>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

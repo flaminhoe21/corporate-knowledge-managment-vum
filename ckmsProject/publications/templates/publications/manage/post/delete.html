@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+{% block title %}Delete post{% endblock %}
+{% block content %}
+<div class="basic-class-wrap">
+    <div class="wrapper">
+        <h1><i class="fas fa-trash-alt"></i> Delete post "{{ object.subject }}"</h1>
+        <div class="module">
+        <form action="" method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <input type="submit" value="Confirm">
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

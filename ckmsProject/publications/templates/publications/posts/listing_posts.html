@@ -1,0 +1,125 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}
+  {% if category %}
+    {{ category.subject }} posts
+  {% else %}
+    All categories
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+  <div id="main-intro-background">
+        <div class="image-holder"><img src="{% static 'images/ckms_intro_background.jpg' %}" alt="CKMS Intro background"/></div>
+        <div class="intro-text">
+            <h1>Corporate Managment System</h1>
+            <p>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of</p>
+            <div class="register-btn"><a href="{% url 'user_register' %}"><i class="fas fa-user-plus"></i> Register in the system</a></div>
+        </div>
+    </div>
+
+
+
+<div id="main">
+  <div id="posts-section">
+    <div class="wrapper">
+      <h2>    {% if category %}
+      {{ category.subject }} posts
+    {% else %}
+      All posts
+    {% endif %}</h2>
+    </div>
+      <div class="categories-menu responsive">
+          <div class="categories-wrap">
+              <div class="categories-section-title"><i class="fas fa-list"></i> Categories</div>
+              <div class="sub-title" {% if not category %}class="selected"{% endif %}>
+                  <a href="{% url 'post_more_details' %}">All Categories</a>
+              </div>
+              <div class="categories-links">
+                  <ul>
+                    {% for s in categories %}
+                      <li {% if category == s %}class="selected"{% endif %}>
+                        <a href="{% url 'categories_listing' s.slug %}"> <i class="fas fa-chevron-right"></i>{{ s.subject }}
+                        <div>{{ s.total_posts }} posts</div></a>
+                        </li>
+                    {% endfor %}
+                  </ul>
+              </div>
+          </div>
+      </div>
+    <div class="posts-content">
+        {% for post in posts %}
+        {% with category=post.category %}
+        <div class="single-post">
+            <div class="post-content">
+
+              <div class="post-title"><i class="fas fa-star"></i><a href="{% url 'post_details' post.slug %}"><span>{{ post.subject }}</span></a></div>
+
+              <div class="publisher">Publisher: <span>{{ post.publisher.get_full_name }}</span></div>
+                <div class="modules"><span>{{ post.total_modules }}</span> Contents Available</div>
+                <div class="modules-content">
+                    <ul>
+                        <li>Main Category: <a href="{% url 'categories_listing' category.slug %}">{{ category }}</a></li>
+                    </ul>
+                </div>
+                <div class="details-btn"><a href="{% url 'post_details' post.slug %}">View more details</a></div>
+            </div>
+        </div>
+        {% endwith %}
+        {% endfor %}
+      </div>
+
+      <div class="categories-menu full">
+          <div class="categories-wrap">
+              <div class="categories-section-title"><i class="fas fa-list"></i> Categories</div>
+              <div class="sub-title" {% if not category %}class="selected"{% endif %}>
+                  <a href="{% url 'post_more_details' %}">All Categories</a>
+              </div>
+              <div class="categories-links">
+                  <ul>
+                    {% for s in categories %}
+                      <li {% if category == s %}class="selected"{% endif %}>
+                        <a href="{% url 'categories_listing' s.slug %}"> <i class="fas fa-chevron-right"></i>{{ s.subject }}
+                        <div>{{ s.total_posts }} posts</div></a>
+                        </li>
+                    {% endfor %}
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+    </div>
+   <div class="cl"><!-- --></div>
+  </div>
+<div id="app-advances">
+        <div class="wrapper">
+            <h2>Advantages of the system</h2>
+            <div class="advances-shell">
+                <div class="single-item">
+                    <div class="icon-holder"><i class="fas fa-hourglass-end"></i></div>
+                    <div class="inner-content">
+                        <h2>Time Saving</h2>
+                        <p>In publishing and graphic design, Lorem ipsum is a placeholder text commonly.</p>
+                    </div>
+                </div>
+                <div class="single-item">
+                    <div class="icon-holder"><i class="fas fa-info-circle"></i></div>
+                    <div class="inner-content">
+                        <h2>Content Managing</h2>
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+                    </div>
+                </div>
+                <div class="single-item">
+                    <div class="icon-holder"><i class="fas fa-shield-alt"></i></div>
+                    <div class="inner-content">
+                        <h2>Security </h2>
+                        <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+{% endblock %}
